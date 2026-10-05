@@ -113,4 +113,5 @@ public class Flight {
     public String getArrivalTime() {
         return arrivalTime;
     }
+    
 }
