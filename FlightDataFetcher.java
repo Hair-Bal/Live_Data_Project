@@ -2,6 +2,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+
 
 //This is not final i still have to put my sources (everything works fine though) so just dont submit this ^^
 
@@ -72,6 +74,23 @@ public class FlightDataFetcher {
      */
     public static void main(String[] args) {
         System.out.println("Fetching live flight data from Aviationstack...");
-        fetchLiveFlightData();
+        // From Zach i have just put in a few lines just the make sure the Assignment statements work but make the output like you want it
+        //make sure these are deleted before submitting
+        String data = fetchLiveFlightData();
+        ArrayList<Flight> flights = FlightDataSeparator.separateFlights(data);
+
+        for (int i = 0; i < flights.size(); i++) {
+
+            System.out.println(" Flight " + (i + 1) );
+
+            System.out.println("Date: "
+                    + flights.get(i).getFlightDate());
+
+            System.out.println("Status: "
+                    + flights.get(i).getStatus());
+
+            System.out.println("Airline: "
+                    + flights.get(i).getAirline());
+        }
     }
 }
