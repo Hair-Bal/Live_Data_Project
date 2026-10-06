@@ -2,17 +2,18 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-
-
-//This is not final i still have to put my sources (everything works fine though) so just dont submit this ^^
 
 /**
  * FlightDataFetcher connects to the Aviationstack API to capture live,
  * real-time flight data.
  *
+ * Sources Used:
+ * - BufferedReader: https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/BufferedReader.html
+ * - InputStreamReader: https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/InputStreamReader.html
+ * - HttpURLConnection: https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/net/HttpURLConnection.html
+ *
  * @author Joshua Castro
- * @version 1.0
+ * @version 1.4
  */
 public class FlightDataFetcher {
     private static final String API_KEY = "8cba4fee8bf8894b74d3cb2b88cb6bed";
@@ -28,10 +29,9 @@ public class FlightDataFetcher {
         StringBuilder response = new StringBuilder();
 
         try {
-            // Convert the endpoint string into a URL object that can be used to route traffic
+            // Convert the endpoint string into a URL object
             URL url = new URL(ENDPOINT);
-            //opens a connection to a specified URL. cast that to httpURLconnection to access
-            //features like request methods and status codes
+            //open http connection to make request parameters and response codes.
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             //tells server to read data
             conn.setRequestMethod("GET");
@@ -39,7 +39,7 @@ public class FlightDataFetcher {
             int responseCode = conn.getResponseCode();
 
             if (responseCode == 200) {
-                // Read the incoming live data stream, line by line
+                // Read the live data
                 BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 String line;
 
@@ -48,7 +48,7 @@ public class FlightDataFetcher {
                 }
                 reader.close();
 
-                // display success message and output the captured data
+                // display success message & output the captured data
                 System.out.println("Live Aviation Data Successfully Captured:");
                 System.out.println(response.toString());
 
@@ -74,39 +74,6 @@ public class FlightDataFetcher {
      */
     public static void main(String[] args) {
         System.out.println("Fetching live flight data from Aviationstack...");
-        /**
-         * Works with Flight and FlightDataSeparator to output the data in a readable way
-         * for loop that loops through each slight, printing appropriate information
-         * @Author Zach Baird
-         * @Author Jack Martin
-         */
-        String data = fetchLiveFlightData();
-        ArrayList<Flight> flights = FlightDataSeparator.separateFlights(data);
-        //"i" represents the current flight being printed in the loop
-        for (int i = 0; i < flights.size(); i++) {
-
-            System.out.println("====Flight " + (i + 1) + "====" );
-
-            System.out.println("Date: "
-                    + flights.get(i).getFlightDate());
-
-            System.out.println("Status: "
-                    + flights.get(i).getStatus());
-
-            System.out.println("Airline: "
-                    + flights.get(i).getAirline());
-
-            System.out.println("Departure Airport: "
-                    + flights.get(i).getDepartureAirport());
-                
-            System.out.println("Departure Time: " 
-                + flights.get(i).getDepartureTime());
-            
-            System.out.println("Arrival Time: " 
-                + flights.get(i).getArrivalTime());
-
-            System.out.println("Arrival Airport: " 
-                + flights.get(i).getArrivalAirport());
-        }
+        fetchLiveFlightData();
     }
 }
