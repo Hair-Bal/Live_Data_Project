@@ -1,6 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+
 public class UserDisplay  implements ActionListener {
     private int count = 0;
     private JButton button;
@@ -98,6 +100,44 @@ public class UserDisplay  implements ActionListener {
         button = new JButton("Filter");
         button.addActionListener(this);
         panel.add(button);
+        //this is a test
+        String data = FlightDataFetcher.fetchLiveFlightData();
+        //this is a test
+        ArrayList<Flight> flights = FlightDataSeparator.separateFlights(data);
+        JTextArea outputTextArea = new JTextArea(20,20);
+        //this is a test
+        for (int i = 0; i < flights.size(); i++){
+            outputTextArea.append("====Flight " + (i + 1) + "====" );
+
+            outputTextArea.append("Date: "
+                    + flights.get(i).getFlightDate());
+
+            outputTextArea.append("Date: "
+                    + flights.get(i).getStatus());
+
+            outputTextArea.append("Airline: "
+                    + flights.get(i).getAirline());
+
+            outputTextArea.append("Departure Airport: "
+                    + flights.get(i).getDepartureAirport());
+
+            outputTextArea.append("Departure Time: "
+                    + flights.get(i).getDepartureTime());
+
+            outputTextArea.append("Arrival Time: "
+                    + flights.get(i).getArrivalTime());
+
+            outputTextArea.append("Arrival Airport: "
+                    + flights.get(i).getArrivalAirport()+"\n");
+
+
+        }
+        outputTextArea.setLineWrap(true);
+        outputTextArea.setWrapStyleWord(true);
+        JScrollPane scrollPane = new JScrollPane(outputTextArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        frame.add(scrollPane, BorderLayout.SOUTH);
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
 
     }
 
