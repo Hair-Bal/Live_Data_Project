@@ -17,7 +17,7 @@ import java.util.ArrayList;
  * @version 1.4
  */
 public class FlightDataFetcher {
-    private static final String API_KEY = "8cba4fee8bf8894b74d3cb2b88cb6bed";
+    private static final String API_KEY ="5d6197ff9d13184df8ef4f7ab7d81aee"; // Josh's key, out of calls "8cba4fee8bf8894b74d3cb2b88cb6bed";
     private static final String ENDPOINT = "https://api.aviationstack.com/v1/flights?access_key=" + API_KEY;
 
     /**
